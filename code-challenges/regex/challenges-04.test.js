@@ -60,7 +60,7 @@ If the user enters any of these four inputs, return true. For any other input, r
 Do not use the vertical bar (pipe) in your pattern.
 ------------------------------------------------------------------------------------------------ */
 
-const matchMonth = (input) => /\b(October|Oct|october|oct)\b/g.test(input);
+const matchMonth = (input) => /^[oO]ct(ober)?$/.test(input);
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 5
