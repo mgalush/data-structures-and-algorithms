@@ -16,7 +16,8 @@
   "license": "ISC",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "jest": "^24.1.0"
+    "jest": "^24.1.0",
+    "mustache": "^4.0.1"
   },
   "bugs": {
     "url": "https://github.com/mgalush/data-structures-and-algorithms/issues"
