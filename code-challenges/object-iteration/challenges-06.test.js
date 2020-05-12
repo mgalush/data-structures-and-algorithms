@@ -129,44 +129,19 @@ hasChildrenValues(characters, 'Cersei') will return true
 hasChildrenValues(characters, 'Sansa') will return false
 ------------------------------------------------------------------------------------------------ */
 
-// if (arr.forEach(character.children)) {
-//   return true; 
-// } else {
-//   return true;
-// }
-
-
 const hasChildrenValues = (arr, character) => {
-  arr.forEach(value => {
-    if (Object.values(value.children).includes(character)) {
-      console.log(Object.values(value.children));
-      return true;
-    } else {
-      return false;
+  let hasChildren = false;
+  arr.forEach((value) => {
+    const values = Object.values(value);
+    if (values[0] === character) {
+      if (values[2].length !== 0) {
+        hasChildren = true;
+      }
     }
-  })
+  });
+  return hasChildren;
 };
 
-// Object.values(arr).forEach( (value) => {
-//   // console.log(value.children);
-//   if (value.children.includes(character)) {
-//     console.log(true);
-//     return true;
-//   } else {
-//     console.log(false);
-//     return false;
-//   }})
-// };
-
-// let kids;
-  // arr.forEach(obj => {
-  //   if (Object.values(obj)[0] === character && Object.values(obj)[2].length !== 0) {
-  //     kids = true;
-  //   } else if (Object.values(obj)[0] === character && Object.values(obj)[2].length === 0) {
-  //     kids = false;
-  //   }
-  // })
-  // return (kids);
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 5 - Stretch Goal
