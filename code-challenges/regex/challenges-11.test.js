@@ -10,10 +10,10 @@ E.g. [ { firstName:"Jane", lastName:"Doe" }, { firstName:"Donald", lastName:"Duc
 should convert to ["Jane Doe", "Donald Duck"]
 Note the space in between first and last names.
 ------------------------------------------------------------------------------------------------ */
-const toLastNames = people => {
+const toLastNames = (people) => {
   return people.map((val) => {
     return `${val.firstName} ${val.lastName}`;
-  })
+  });
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -29,11 +29,11 @@ const validatePin = (pin) => {
   return regex.test(pin);
 };
 
-//  regex explanation: 
-    // ^ matches the first character
-    // \d matches a digit
-    // {4} matches exactly 4 times
-    // $ signifies end of string so it won't match any characters after 
+//  regex explanation:
+// ^ matches the first character
+// \d matches a digit
+// {4} matches exactly 4 times
+// $ signifies end of string so it won't match any characters after
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 3
@@ -57,7 +57,7 @@ const validateEmail = (email) => {
 };
 
 // regex explanation:
-// \w matches any word character (a-z, 0-9) 
+// \w matches any word character (a-z, 0-9)
 // + continues to match the word character
 // (\.\w) matches a period and a word and ? makes it optional
 // @ matches the @ symbol
@@ -95,7 +95,7 @@ const validatePhoneNumber = (phoneNumber) => {
 // (\(\d{3}\) | \d{3}) matches parenthesis and three numbers plus another parenthesis OR just 3 numbers
 // \s | - checks for a blank space or a dash and the ? makes it optional
 // \d{3}(\s|\-)?\d{4} checks for 3 digits and an optional - and then 4 more digits
-// $ signifies the end of the expression 
+// $ signifies the end of the expression
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 5 - Stretch Goal
@@ -106,8 +106,12 @@ For example, findTagNames(['<h1>Hello, world!</h1>', '<p>Welcome to my site</p>'
 findTagNames(['<div><h1>Hello, world!</h1></div>', '<p>Welcome to my site</p>']) returns ['/h1', '/div', '/p'].
 ------------------------------------------------------------------------------------------------ */
 
-const findTagNames = elements => {
-  // Solution code here...
+const findTagNames = (elements) => {
+  let array = [];
+  elements.forEach((val) => {
+    array = [...array, ...val.match(/\/\w+/g)];
+  });
+  return array;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -122,11 +126,12 @@ Run your tests from the console: jest solutions-11.test.js
 
 describe('Testing challenge 1', () => {
   test('It should convert object to full name string', () => {
+    const people = [
+      { firstName: 'Jane', lastName: 'Doe' },
+      { firstName: 'James', lastName: 'Bond' },
+    ];
 
-    const people = [{ firstName: "Jane", lastName: "Doe" }, { firstName: "James", lastName: "Bond" }];
-
-    expect(toLastNames(people)).toStrictEqual(["Jane Doe", "James Bond"]);
-
+    expect(toLastNames(people)).toStrictEqual(['Jane Doe', 'James Bond']);
   });
 });
 
@@ -160,7 +165,7 @@ describe('Testing challenge 3', () => {
     expect(validateEmail('joe.schmoe@codefellows.net')).toBeTruthy();
   });
 
-  test('It should fail things that aren\'t email addresses', () => {
+  test("It should fail things that aren't email addresses", () => {
     expect(validateEmail('justastring')).toBeFalsy();
     expect(validateEmail('missing@adomain')).toBeFalsy();
     expect(validateEmail('@noname.com')).toBeFalsy();
@@ -197,11 +202,18 @@ describe('Testing challenge 4', () => {
   });
 });
 
-xdescribe('Testing challenge 5', () => {
+describe('Testing challenge 5', () => {
   test('It should return the closing tags', () => {
-    expect(findTagNames(['<h1>Hello, world!</h1>', '<p>Welcome to my site</p>'])).toStrictEqual(['/h1', '/p']);
+    expect(
+      findTagNames(['<h1>Hello, world!</h1>', '<p>Welcome to my site</p>'])
+    ).toStrictEqual(['/h1', '/p']);
   });
   test('It should work if there are multiple closing tags in a single string', () => {
-    expect(findTagNames(['<div><h1>Hello, world!</h1></div>', '<p>Welcome to my site</p>'])).toStrictEqual(['/h1', '/div', '/p']);
+    expect(
+      findTagNames([
+        '<div><h1>Hello, world!</h1></div>',
+        '<p>Welcome to my site</p>',
+      ])
+    ).toStrictEqual(['/h1', '/div', '/p']);
   });
 });
