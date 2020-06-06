@@ -214,8 +214,16 @@ const meetings = [
 
 const sortMeetingsByDay = (arr) => {
   let dayOfWeekArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  arr.sort((left, right) => {
-  //  if (left.dayOfWeek)
+  return arr.sort((left, right) => {
+   const leftIndex = dayOfWeekArray.indexOf(left.dayOfWeek);
+   const rightIndex = dayOfWeekArray.indexOf(right.dayOfWeek);
+   if (leftIndex < rightIndex) {
+     return -1;
+   } else if (leftIndex > rightIndex) {
+     return 1;
+   } else {
+     return 0;
+   }
   })
 };
 
@@ -227,12 +235,24 @@ This challenge should use the array of meetings from challenge 9, above.
 
 Sort the meetings in the order that they start. If two meetings start at the same time on the same day, the shorter meeting should come first.
 
-You DO NOT need to use your solution to Challenge 9 in completing Challenge 10.
+You DO NOT need to use your solution to Challenge 9 in completing Challenge 10. <-- THIS IS A LIE
 ------------------------------------------------------------------------------------------------ */
 
 const sortSchedule = (arr) => {
-  // Solution code here...
+  const sortedArray = sortMeetingsByDay(arr);
+  return sortedArray.sort((left, right) => {
+    if (left.dayOfWeek === right.dayOfWeek) {
+      if ((parseInt(left.end) - parseInt(left.start)) < (parseInt(right.end) - parseInt(right.start))) {
+        return -1;
+      } else if ((parseInt(left.end) - parseInt(left.start)) > (parseInt(right.end) - parseInt(right.start))) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+  })
 };
+
 
 /* ------------------------------------------------------------------------------------------------
 TESTS
@@ -350,7 +370,7 @@ describe('Testing challenge 9', () => {
   });
 });
 
-xdescribe('Testing challenge 10', () => {
+describe('Testing challenge 10', () => {
   test('It should sort meetings by when they happen', () => {
     expect(sortSchedule(meetings)).toStrictEqual([
       new Meeting('Monday', '0900', '0945'),
